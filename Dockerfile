@@ -8,7 +8,8 @@ RUN apt-get update -y && \
     rm -f /var/lib/apt/lists/*_*
 WORKDIR /opt/build
 COPY webapp .
-RUN npm ci --no-audit --no-color && \
+RUN npm install -g npm@latest && \
+    npm ci --no-audit --no-color && \
     npm run build-production
 
 FROM node:21.6.1-bullseye-slim AS jipt-builder
@@ -18,7 +19,8 @@ RUN apt-get update -y && \
     rm -f /var/lib/apt/lists/*_*
 WORKDIR /opt/build
 COPY jipt .
-RUN npm ci --no-audit --no-color && \
+RUN npm install -g npm@latest && \
+    npm ci --no-audit --no-color && \
     npm run build-production
 
 #
